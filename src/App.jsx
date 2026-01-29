@@ -1,8 +1,12 @@
+import { RouterProvider } from "react-router"
+import { router } from "./router"
+import FrontendLayout from "./assets/Front/layout/FrontendLayout"
+
 function App() {
   return (
-    <>
-      React exercise
-    </>
+    <RouterProvider router={router}>
+      <FrontendLayout />
+    </RouterProvider>
   )
 }
 
