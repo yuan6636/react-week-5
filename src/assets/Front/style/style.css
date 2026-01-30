@@ -1,5 +1,13 @@
 html,
 body {
   height: 100%;
-  text-align: center;
+}
+
+img {
+  max-width: 100%;
+  object-fit: cover;
+}
+
+.card img {
+  height: 200px;
 }

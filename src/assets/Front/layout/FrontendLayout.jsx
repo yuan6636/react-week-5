@@ -45,11 +45,11 @@ const FrontendLayout = () => {
           </div>
         </nav>
       </header>
-      <main>
+      <main className="py-3">
         <Outlet />
       </main>
       <footer>
-        <p className="py-3 bg-body-secondary">
+        <p className="py-3 bg-body-secondary text-center">
           &copy; 2026 Soft Night. All rights reserved.
         </p>
       </footer>
