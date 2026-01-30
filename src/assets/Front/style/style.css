@@ -8,6 +8,11 @@ img {
   object-fit: cover;
 }
 
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
 .card img {
   height: 200px;
 }

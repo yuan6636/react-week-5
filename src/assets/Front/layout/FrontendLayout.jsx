@@ -2,7 +2,7 @@ import { Outlet, Link } from "react-router";
 
 const FrontendLayout = () => {
   return (
-    <>
+    <div className="d-flex flex-column vh-100">
       <header>
         <nav className="navbar navbar-expand-lg bg-info-subtle">
           <div className="container-fluid">
@@ -48,12 +48,12 @@ const FrontendLayout = () => {
       <main className="py-3">
         <Outlet />
       </main>
-      <footer>
-        <p className="py-3 bg-body-secondary text-center">
+      <footer className="mt-auto">
+        <p className="py-3 bg-body-secondary text-center mb-0">
           &copy; 2026 Soft Night. All rights reserved.
         </p>
       </footer>
-    </>
+    </div>
   );
 }
 

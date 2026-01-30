@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Link } from "react-router";
 
 const API_BASE = import.meta.env.VITE_API_BASE;
 const API_PATH = import.meta.env.VITE_API_PATH;
@@ -41,9 +42,9 @@ const Products = () => {
                     <strong>{product.price}</strong>元
                     <span> / {product.unit}</span>
                   </p>
-                  <a href="#" className="btn btn-primary align-self-end">
+                  <Link to={`/product/${product.id}`} className="btn btn-primary align-self-end">
                     查看更多
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
