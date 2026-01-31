@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router';
+import { Link, useNavigate, useParams } from 'react-router';
 
 const API_BASE = import.meta.env.VITE_API_BASE;
 const API_PATH = import.meta.env.VITE_API_PATH;
@@ -11,6 +11,8 @@ const SingleProduct = () => {
 
   const [product, setProduct] = useState({});
   const [qty, setQty] = useState(1);
+
+  const navigate = useNavigate();
 
   const handleChangeQty = (e) => {
     const { value } = e.target;
@@ -31,6 +33,25 @@ const SingleProduct = () => {
       return prevQty <= 1 ? 1 :prevQty - 1;
     });
   };
+
+  const addToCart = async () => {
+    const data = {
+      data: {
+        "product_id": product.id,
+        qty
+      }
+    }
+    try {
+      const res = await axios.post(`${API_BASE}/api/${API_PATH}/cart`, data);
+      alert(res.data.message || '已成功加入購物車！');
+      navigate('/cart');
+    } catch (error) {
+      const errMsg = error?.response?.data?.message || error.message;
+      console.error('加入購物車失敗:', errMsg);
+      navigate(-1);
+      alert('加入購物車失敗!');
+    }
+  }
 
   useEffect(() => {
     const getProduct = async () => {
@@ -105,7 +126,7 @@ const SingleProduct = () => {
                 單位：<span>{product.unit}</span>
               </p>
             </div>
-            <div className="d-flex flex-sm-row flex-column justify-content-between align-items-sm-center gap-4">
+            <div className="d-flex flex-xxl-row flex-column justify-content-between align-items-xxl-center gap-4">
               <div className="d-flex align-items-center">
                 <label className="me-2" htmlFor="count">
                   數量：
@@ -132,7 +153,6 @@ const SingleProduct = () => {
                     id="count"
                     type="text"
                     className="form-control text-center"
-                    style={{ width: '100px' }}
                     aria-label="Example text with button addon"
                     aria-describedby="button-addon1"
                     value={qty}
@@ -163,6 +183,7 @@ const SingleProduct = () => {
                 <button
                   type="button"
                   className="btn btn-primary align-self-start me-2"
+                  onClick={() => addToCart()}
                 >
                   加入購物車
                 </button>
