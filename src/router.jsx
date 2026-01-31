@@ -2,7 +2,7 @@ import { createHashRouter } from "react-router";
 import FrontendLayout from "./assets/Front/layout/FrontendLayout";
 import Home from "./assets/Front/pages/Home";
 import Products from "./assets/Front/pages/Products";
-import SingleProduct from "./assets/Front/pages/singleProduct";
+import SingleProduct from "./assets/Front/pages/SingleProduct";
 import Cart from "./assets/Front/pages/Cart";
 import NotFound from "./assets/Front/pages/NotFound";
 
