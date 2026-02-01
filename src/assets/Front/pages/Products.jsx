@@ -6,6 +6,7 @@ import { formatCurrency } from "../utils/formatters";
 
 const API_BASE = import.meta.env.VITE_API_BASE;
 const API_PATH = import.meta.env.VITE_API_PATH;
+const errorImg = 'https://yuan6636.github.io/soft-night-images/error-fallback.jpg';
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -33,7 +34,7 @@ const Products = () => {
             <div className="col-lg-4 col-md-6" key={product.id}>
               <div className="card h-100">
                 <img
-                  src={product.imageUrl}
+                  src={product.imageUrl || errorImg}
                   className="card-img-top"
                   alt={`${product.title}圖片`}
                 />

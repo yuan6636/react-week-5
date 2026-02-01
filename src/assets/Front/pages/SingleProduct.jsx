@@ -78,7 +78,7 @@ const SingleProduct = () => {
           <div className="col-lg-6">
             <img
               className="mb-3 w-100"
-              src={product.imageUrl}
+              src={product.imageUrl || null}
               alt={`${product.title}圖片`}
               height={400}
             />
