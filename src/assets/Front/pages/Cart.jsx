@@ -7,18 +7,35 @@ const API_PATH = import.meta.env.VITE_API_PATH;
 const Cart = () => {
   const [cart, setCart] = useState([]);
   
-  useEffect(() => {
-    const getCart = async() => {
-      try {
-        const res = await axios.get(`${API_BASE}/api/${API_PATH}/cart`);
-        setCart(res.data.data);
-      } catch (error) {
-        const errMsg = error.response?.data?.message || error.message;
-        console.error('取得購物車失敗', errMsg);
-      }
+  const getCart = async() => {
+    try {
+      const res = await axios.get(`${API_BASE}/api/${API_PATH}/cart`);
+      setCart(res.data.data);
+    } catch (error) {
+      const errMsg = error.response?.data?.message || error.message;
+      console.error('取得購物車失敗', errMsg);
     }
+  }
 
-    getCart();      
+  const updateQty = async (cartItem, delta) => {
+    const { id: cartId, product: {id: productId}, qty} = cartItem;
+    const data = {
+      product_id: productId,
+      qty: qty + delta > 0 ? qty + delta : 1,
+    };
+    
+    try {
+      await axios.put(`${API_BASE}/api/${API_PATH}/cart/${cartId}`, { data });
+      getCart();
+    } catch (error) {
+      console.error('新增產品數量失敗', error?.response?.data?.message);
+    }
+  };
+  
+  useEffect(() => {
+    (async() => {
+      getCart();
+    })()
   }, [])
 
   return (
@@ -39,20 +56,21 @@ const Cart = () => {
           </tr>
         </thead>
         <tbody>
-          {cart?.carts?.map((cart) => (
-            <tr key={cart.id}>
+          {cart?.carts?.map((cartItem) => (
+            <tr key={cartItem.id}>
               <th scope="row">
                 <button type="button" className="btn btn-danger">
                   刪除
                 </button>
               </th>
-              <td>{cart.product.title}</td>
+              <td>{cartItem.product.title}</td>
               <td>
                 <div className="input-group w-50">
                   <button
                     className="btn btn-light p-1 border border-light-subtle"
                     type="button"
                     id="button-increaseQty"
+                    onClick={() => updateQty(cartItem, 1)}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -69,6 +87,7 @@ const Cart = () => {
                     className="btn btn-light p-1 border border-light-subtle"
                     type="button"
                     id="button-decreaseQty"
+                    onClick={() => updateQty(cartItem, -1)}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -83,19 +102,18 @@ const Cart = () => {
                   </button>
                   <input
                     type="text"
-                    className="form-control"
+                    className="form-control bg-white"
                     aria-label="商品數量"
                     aria-describedby="product-unit"
-                    defaultValue={cart.qty}
-                    inputMode="numeric"
-                    pattern="[1-9]*"
+                    value={cartItem.qty}
+                    disabled
                   />
                   <span className="input-group-text" id="product-unit">
-                    {cart.product.unit}
+                    {cartItem.product.unit}
                   </span>
                 </div>
               </td>
-              <td>{cart.final_total}</td>
+              <td>{cartItem.final_total}</td>
             </tr>
           ))}
         </tbody>
