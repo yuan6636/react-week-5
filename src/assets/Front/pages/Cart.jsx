@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Link } from "react-router";
 
 const API_BASE = import.meta.env.VITE_API_BASE;
 const API_PATH = import.meta.env.VITE_API_PATH;
@@ -31,6 +32,26 @@ const Cart = () => {
       console.error('新增產品數量失敗', error?.response?.data?.message);
     }
   };
+
+  const deleteCart = async (cartId) => {
+    try {
+      await axios.delete(`${API_BASE}/api/${API_PATH}/cart/${cartId}`);
+      alert('已成功刪除購物車商品！');
+      getCart();
+    } catch (error) {
+      console.error('刪除購物車商品失敗', error?.response?.data?.message);
+    }
+  }
+
+  const deleteCartAll = async () => {
+    try {
+      await axios.delete(`${API_BASE}/api/${API_PATH}/carts`);
+      alert('已成功清空所有購物車商品！');
+      getCart();
+    } catch (error) {
+      console.error('清空所有購物車商品失敗', error?.response?.data?.message);
+    }
+  };
   
   useEffect(() => {
     (async() => {
@@ -42,9 +63,14 @@ const Cart = () => {
     <div className="container">
       <div className="d-flex justify-content-between">
         <h2>購物車列表</h2>
-        <button type="button" className="btn btn-danger">
-          清空購物車
-        </button>
+        <div>
+          <Link to="/products" type="button" className="btn btn-secondary me-2">
+            返回列表
+          </Link>
+          <button type="button" className="btn btn-danger" onClick={() => deleteCartAll()}>
+            清空購物車
+          </button>
+        </div>
       </div>
       <table className="table align-middle">
         <thead>
@@ -56,10 +82,15 @@ const Cart = () => {
           </tr>
         </thead>
         <tbody>
+          {cart?.carts?.length === 0 && <tr><td colSpan={4} className="fs-3 text-center text-success border-bottom-0">購物車目前沒有商品，趕緊去選購吧！</td></tr>}
           {cart?.carts?.map((cartItem) => (
             <tr key={cartItem.id}>
               <th scope="row">
-                <button type="button" className="btn btn-danger">
+                <button
+                  type="button"
+                  className="btn btn-danger"
+                  onClick={() => deleteCart(cartItem.id)}
+                >
                   刪除
                 </button>
               </th>
