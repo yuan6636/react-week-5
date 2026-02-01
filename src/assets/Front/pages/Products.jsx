@@ -2,6 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 
+import { formatCurrency } from "../utils/formatters";
+
 const API_BASE = import.meta.env.VITE_API_BASE;
 const API_PATH = import.meta.env.VITE_API_PATH;
 
@@ -39,10 +41,13 @@ const Products = () => {
                   <h5 className="card-title">{product.title}</h5>
                   <p className="card-text">{product.description}</p>
                   <p className="card-text">
-                    <strong>{product.price}</strong>元
+                    <strong>NT{formatCurrency(product.price)}</strong>元
                     <span> / {product.unit}</span>
                   </p>
-                  <Link to={`/product/${product.id}`} className="btn btn-primary align-self-end">
+                  <Link
+                    to={`/product/${product.id}`}
+                    className="btn btn-primary align-self-end"
+                  >
                     查看更多
                   </Link>
                 </div>

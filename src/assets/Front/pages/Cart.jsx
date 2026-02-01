@@ -2,6 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 
+import { formatCurrency } from "../utils/formatters";
+
 const API_BASE = import.meta.env.VITE_API_BASE;
 const API_PATH = import.meta.env.VITE_API_PATH;
 
@@ -67,7 +69,11 @@ const Cart = () => {
           <Link to="/products" type="button" className="btn btn-secondary me-2">
             返回列表
           </Link>
-          <button type="button" className="btn btn-danger" onClick={() => deleteCartAll()}>
+          <button
+            type="button"
+            className="btn btn-danger"
+            onClick={() => deleteCartAll()}
+          >
             清空購物車
           </button>
         </div>
@@ -82,7 +88,16 @@ const Cart = () => {
           </tr>
         </thead>
         <tbody>
-          {cart?.carts?.length === 0 && <tr><td colSpan={4} className="fs-3 text-center text-success border-bottom-0">購物車目前沒有商品，趕緊去選購吧！</td></tr>}
+          {cart?.carts?.length === 0 && (
+            <tr>
+              <td
+                colSpan={4}
+                className="fs-3 text-center text-success border-bottom-0"
+              >
+                購物車目前沒有商品，趕緊去選購吧！
+              </td>
+            </tr>
+          )}
           {cart?.carts?.map((cartItem) => (
             <tr key={cartItem.id}>
               <th scope="row">
@@ -144,7 +159,7 @@ const Cart = () => {
                   </span>
                 </div>
               </td>
-              <td>{cartItem.final_total}</td>
+              <td>{`NT${formatCurrency(cartItem.final_total)}`}</td>
             </tr>
           ))}
         </tbody>
@@ -153,7 +168,7 @@ const Cart = () => {
             <td className="text-end" colSpan={3}>
               總計
             </td>
-            <td>{cart.final_total}</td>
+            <td>{`NT${formatCurrency(cart.final_total)}`}</td>
           </tr>
         </tfoot>
       </table>

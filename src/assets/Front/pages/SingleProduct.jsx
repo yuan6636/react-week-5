@@ -2,6 +2,8 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
 
+import { formatCurrency } from '../utils/formatters';
+
 const API_BASE = import.meta.env.VITE_API_BASE;
 const API_PATH = import.meta.env.VITE_API_PATH;
 
@@ -113,10 +115,10 @@ const SingleProduct = () => {
                 原價：
                 <span>
                   <del className="me-3">
-                    NT$ <span>{product.origin_price}</span>
+                    NT<span>{formatCurrency(product.origin_price)}</span>
                   </del>
                   <strong className="text-danger">
-                    NT$ <span>{product.price}</span>
+                    NT<span>{formatCurrency(product.price)}</span>
                   </strong>
                 </span>
               </p>
