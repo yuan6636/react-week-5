@@ -71,7 +71,7 @@ const Cart = () => {
           </Link>
           <button
             type="button"
-            className="btn btn-danger"
+            className={`btn btn-danger ${cart?.carts?.length === 0 && 'd-none'}`}
             onClick={() => deleteCartAll()}
           >
             清空購物車
