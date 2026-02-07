@@ -13,6 +13,7 @@ const SingleProduct = () => {
 
   const [product, setProduct] = useState({});
   const [qty, setQty] = useState(1);
+  const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
 
@@ -65,11 +66,19 @@ const SingleProduct = () => {
       } catch (error) {
         const errMsg = error.response?.data?.message || error.message;
         console.error('取得產品失敗:', errMsg);
+        setProduct(null);
+      } finally {
+        // 資料取得完成或失敗後，將 loading 狀態改成 false
+        setLoading(false);
       }
     };
 
     getProduct();
   }, [id]);
+
+  if (loading) {
+    return (<div className='position-fixed top-50 start-50 fs-1 text-secondary fw-bold'>Loading...</div>)
+  }
 
   return (
     <>
