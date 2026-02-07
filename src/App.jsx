@@ -1,6 +1,6 @@
 import { RouterProvider } from "react-router"
 import { router } from "./router"
-import FrontendLayout from "./assets/Front/layout/FrontendLayout"
+import FrontendLayout from "./Front/layout/FrontendLayout"
 
 function App() {
   return (

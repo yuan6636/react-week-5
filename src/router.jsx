@@ -1,10 +1,10 @@
 import { createHashRouter } from "react-router";
-import FrontendLayout from "./assets/Front/layout/FrontendLayout";
-import Home from "./assets/Front/pages/Home";
-import Products from "./assets/Front/pages/Products";
-import SingleProduct from "./assets/Front/pages/SingleProduct";
-import Cart from "./assets/Front/pages/Cart";
-import NotFound from "./assets/Front/pages/NotFound";
+import FrontendLayout from "./Front/layout/FrontendLayout";
+import Home from "./Front/pages/Home";
+import Products from "./Front/pages/Products";
+import SingleProduct from "./Front/pages/SingleProduct";
+import Cart from "./Front/pages/Cart";
+import NotFound from "./Front/pages/NotFound";
 
 export const router = createHashRouter([
   {
