@@ -69,7 +69,9 @@ const SingleProduct = () => {
         setProduct(null);
       } finally {
         // 資料取得完成或失敗後，將 loading 狀態改成 false
-        setLoading(false);
+        setTimeout(() => {
+          setLoading(false);
+        }, 500);
       }
     };
 
